@@ -51,7 +51,7 @@ app.get("/:endpoint", async (req, res) => {
         offset: req.query.offset,
       })
     );
-    res.status(200).json(response.data.data.results);
+    res.status(200).json(response.data.data);
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
