@@ -1,11 +1,9 @@
 require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
-const formidable = require("express-formidable");
 const axios = require("axios");
 const app = express();
 app.use(cors());
-app.use(formidable());
 const MD5 = require("crypto-js/md5");
 
 // For example, a user with a public key of "1234" and a private key of "abcd" could construct a valid call as follows:
@@ -38,7 +36,7 @@ app.get("/:endpoint/:id", async (req, res) => {
     const response = await axios(
       apiUrl({ endpoint: req.params.endpoint, id: req.params.id })
     );
-    res.status(200).json(response.data.data.results);
+    res.status(200).json(response.data.data.results[0]);
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
