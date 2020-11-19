@@ -41,7 +41,7 @@ app.get("/:endpoint1/:id/:endpoint2", async (req, res) => {
         endpoint2: req.params.endpoint2,
       })
     );
-    res.status(200).json(response.data.data.results[0]);
+    res.status(200).json(response.data.data.results);
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
@@ -77,6 +77,6 @@ app.all("*", (req, res) => {
   res.status(404).json({ message: "Page not found" });
 });
 
-app.listen(process.env.PORT || 3001, () => {
-  console.log("Listening on port 3001");
+app.listen(process.env.PORT, () => {
+  console.log("listening on port " + process.env.PORT);
 });
