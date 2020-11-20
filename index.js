@@ -45,7 +45,7 @@ app.get("/:endpoint1/:id/:endpoint2", async (req, res) => {
     );
     res.status(200).json(response.data.data);
   } catch (error) {
-    res.status(400).json(error.response);
+    res.status(400).json({ message: error.message });
   }
 });
 
@@ -56,7 +56,7 @@ app.get("/:endpoint1/:id", async (req, res) => {
     );
     res.status(200).json(response.data.data.results[0]);
   } catch (error) {
-    res.status(400).json(error.response);
+    res.status(400).json({ message: error.message });
   }
 });
 
@@ -71,7 +71,7 @@ app.get("/:endpoint1", async (req, res) => {
     );
     res.status(200).json(response.data.data);
   } catch (error) {
-    res.status(400).json(error.response);
+    res.status(400).json({ message: error.message });
   }
 });
 
