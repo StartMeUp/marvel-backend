@@ -11,7 +11,16 @@ const MD5 = require("crypto-js/md5");
 //(the hash value is the md5 digest of 1abcd1234)
 
 const apiUrl = (params) => {
-  const { endpoint1, endpoint2, limit, offset, id } = params;
+  const {
+    endpoint1,
+    endpoint2,
+    limit,
+    offset,
+    id,
+    nameStartsWith,
+    titleStartsWith,
+    orderBy,
+  } = params;
   const publicKey = process.env.MARVEL_PUBLIC_KEY;
   const privateKey = process.env.MARVEL_PRIVATE_KEY;
   const date = new Date();
@@ -20,7 +29,11 @@ const apiUrl = (params) => {
 
   const keys = `?ts=${ts}&apikey=${publicKey}&hash=${hash}${
     limit ? "&limit=" + limit : ""
-  }${offset ? "&offset=" + offset : ""}`;
+  }${offset ? "&offset=" + offset : ""}${
+    nameStartsWith ? "&nameStartsWith=" + nameStartsWith : ""
+  }${titleStartsWith ? "&titleStartsWith=" + titleStartsWith : ""}${
+    orderBy ? "&orderBy=" + orderBy : ""
+  }`;
 
   const baseUrl = "http://gateway.marvel.com/v1/public/";
 
@@ -67,6 +80,9 @@ app.get("/:endpoint1", async (req, res) => {
         endpoint1: req.params.endpoint1,
         limit: req.query.limit,
         offset: req.query.offset,
+        nameStartsWith: req.query.nameStartsWith,
+        titleStartsWith: req.query.titleStartsWith,
+        orderBy: req.query.orderBy,
       })
     );
     res.status(200).json(response.data.data);
